@@ -20,7 +20,7 @@ defmodule Ueberauth.Strategy.LinkedIn do
   """
   def handle_request!(conn) do
     scopes = conn.params["scope"] || option(conn, :default_scope)
-    state = conn.params["state"] || Base.encode64(:crypto.strong_rand_bytes(16))
+    state = conn.params["state"] || conn.private[:ueberauth_state_param]
 
     opts = [scope: scopes, state: state, redirect_uri: callback_url(conn)]
 
